@@ -4,7 +4,7 @@ Disclaimer: This code is based on [blog post about creating a flask-mysql app wi
 
 ## Pre-requisites
 You will need to [Docker-compose](https://docs.docker.com/compose/install/) to run this code.
-Also for testing the API, you will need [Postman](https://www.postman.com/downloads/) or a different tool for API testing.
+Also for testing, you will need [Postman](https://www.postman.com/downloads/) or a different tool.
 
 
 ## Installation
@@ -31,4 +31,15 @@ I used the `pytest` framework for unit testing. I have only added a unit-test fo
 ```bash
 cd app && python -m pytest tests.py
 ```
-Ideally tests should be run automatically on `Travis` following each repo push, but that integration can be added later.
+
+
+## Additional Improvements
+I used a simple OpenCV processing function to extract meta-data from the video because I wanted to finish this task quickly. Using a machine learning model would be more beneficial, as they provide semantically more relevant information. The challenge is not in running a model in inference mode, but running the model in a manner that provides useful information.
+
+Let's say we are using [Mask-Track-RCNN](https://github.com/youtubevos/MaskTrackRCNN). If we provide this model with a video in inference mode, it will probably give us a list of objects and their locations in a given frame. But this information in its raw format is probably not useful, because of its sheer volume. Aggregating this information is not intuitive, because each video might consist of multiple `scenes` with different topics. An object might not be visible in future frames because it wandered outside of the camera range or a scene transition happened.
+
+The idea of a video consisting as a series of `scenes` is paramount to the way absorb videos as humans and our data model should reflect this. Knowing this, a more prudent approach is not to run the model on the entire video, but to run it on individual scenes. We can do this using the [PySceneDetect](https://github.com/Breakthrough/PySceneDetect) framework. At this point we can aggregate the information for the type and location of objects in a given scene accordingly. For example, we can extract the start and end location of moving objects (e.g., people) for a given scene.
+
+The code is woefully under-tested. More tests need to be added for coverage. For unit-testing the database, I need to perform mocking, this can be added with more time.
+
+Ideally tests should be run automatically on `Travis` following each repo push.
