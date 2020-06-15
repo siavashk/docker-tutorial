@@ -1,2 +1,3 @@
-Flask
-mysql-connector
+Flask==1.1.2
+mysql-connector==2.2.9
+opencv-python==4.2.0.34
