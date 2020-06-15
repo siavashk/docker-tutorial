@@ -40,6 +40,6 @@ Let's say we are using [Mask-Track-RCNN](https://github.com/youtubevos/MaskTrack
 
 The idea of a video consisting as a series of `scenes` is paramount to the way absorb videos as humans and our data model should reflect this. Knowing this, a more prudent approach is not to run the model on the entire video, but to run it on individual scenes. We can do this using the [PySceneDetect](https://github.com/Breakthrough/PySceneDetect) framework. At this point we can aggregate the information for the type and location of objects in a given scene accordingly. For example, we can extract the start and end location of moving objects (e.g., people) for a given scene.
 
-The code is woefully under-tested. More tests need to be added for coverage. For unit-testing the database, I need to perform mocking, this can be added with more time.
+The code is woefully under-tested. More tests need to be added for coverage. For unit-testing the database and the end-point, I need to perform mocking, this can be added with more time.
 
 Ideally tests should be run automatically on `Travis` following each repo push.
