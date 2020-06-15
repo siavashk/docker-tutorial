@@ -1,6 +1,6 @@
 from utils import allowed_file
 
-
+# TODO: Add more tests to perform better code coverage
 def test_allowed_file():
     assert not allowed_file(None), "None is not an allowed filename."
     assert not allowed_file([]), "Empty list is not an allowed filename."
