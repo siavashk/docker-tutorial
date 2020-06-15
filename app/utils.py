@@ -16,6 +16,8 @@ def allowed_file(filename) -> bool:
         bool: True if the file extension is supported, False otherwise.
 
     """
+    if not isinstance(filename, str):
+        return False
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
@@ -73,7 +75,7 @@ def insert_into_db(meta: Tuple, config: Dict=DB_CONFIG):
     """
     connection = mysql.connector.connect(**config)
     cursor = connection.cursor()
-    cursor.execute(INSERT_STATEMENT, meta) # TODO: add try/except
+    cursor.execute(INSERT_STATEMENT, meta) # TODO: add try
     connection.commit()
     cursor.close()
     connection.close()
